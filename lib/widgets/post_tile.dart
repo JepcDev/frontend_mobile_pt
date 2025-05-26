@@ -12,7 +12,17 @@ class PostTile extends StatelessWidget {
     return Card(
       margin: EdgeInsets.all(8),
       child: ListTile(
-        title: Text(post.title),
+        leading: CircleAvatar(
+          backgroundColor: Colors.teal,
+          child: Text(
+            post.userId.toString(),
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+        ),
+        title: Text(
+          post.title,
+          style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+        ),
         subtitle: Text(post.body, maxLines: 2, overflow: TextOverflow.ellipsis),
         trailing: IconButton(
           icon: Icon(Icons.comment),

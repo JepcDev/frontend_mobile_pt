@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => PostProvider()..fetchPosts(),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Flutter Posts App',
         theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.teal),
         home: PostListScreen(),

@@ -16,17 +16,26 @@ class AddPostScreenState extends State<AddPostScreen> {
   final _formKey = GlobalKey<FormState>();
   final _titleController = TextEditingController();
   final _bodyController = TextEditingController();
+  final _userIdController = TextEditingController();
 
   void _submit() {
     if (_formKey.currentState!.validate()) {
       final newPost = Post(
-          userId: 1,
+          userId: int.parse(_userIdController.text),
           id: 0,
           title: _titleController.text,
           body: _bodyController.text);
       Provider.of<PostProvider>(context, listen: false).addPost(newPost);
       Navigator.pop(context);
     }
+  }
+
+  @override
+  void dispose() {
+    _titleController.dispose();
+    _bodyController.dispose();
+    _userIdController.dispose();
+    super.dispose();
   }
 
   @override
@@ -48,6 +57,16 @@ class AddPostScreenState extends State<AddPostScreen> {
               decoration: InputDecoration(labelText: 'Contenido'),
               validator: (value) => value!.isEmpty ? 'Campo requerido' : null,
               maxLines: 4,
+            ),
+            TextFormField(
+              controller: _userIdController,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(labelText: "User ID"),
+              validator: (value) {
+                if (value == null || value.isEmpty) return 'cCampo requerido';
+                if (int.tryParse(value) == null) return "Deber ser un número";
+                return null;
+              },
             ),
             SizedBox(height: 20),
             ElevatedButton(onPressed: _submit, child: Text('Guardar'))

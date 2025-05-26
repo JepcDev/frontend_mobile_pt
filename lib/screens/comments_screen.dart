@@ -28,9 +28,12 @@ class CommentsScreen extends StatelessWidget {
             itemBuilder: (context, index) {
               final c = comments[index];
               return ListTile(
-                title: Text(c.name),
+                title: Text(
+                  c.name,
+                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
+                ),
                 subtitle: Text(c.body),
-                trailing: Text(c.email),
+                // trailing: Text(c.email),
               );
             },
           );
