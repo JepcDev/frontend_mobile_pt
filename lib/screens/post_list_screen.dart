@@ -5,6 +5,8 @@ import '../screens/add_post_screen.dart';
 import '../screens/comments_screen.dart';
 import '../widgets/post_tile.dart';
 
+import '../providers/theme_provider.dart';
+
 class PostListScreen extends StatelessWidget {
   const PostListScreen({super.key});
 
@@ -12,7 +14,23 @@ class PostListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = Provider.of<PostProvider>(context);
     return Scaffold(
-      appBar: AppBar(title: Text('Lista de Posts')),
+
+appBar: AppBar(
+  title: const Text('Lista de Posts'),
+  actions: [
+    Consumer<ThemeProvider>(
+      builder: (context, themeProvider, child) {
+        final isDark = themeProvider.themeMode == ThemeMode.dark;
+        return IconButton(
+          icon: Icon(isDark ? Icons.dark_mode : Icons.light_mode),
+          onPressed: () {
+            themeProvider.toggleTheme(!isDark);
+          },
+        );
+      },
+    ),
+  ],
+),
       body: provider.isLoading
           ? Center(child: CircularProgressIndicator())
           : ListView.builder(
