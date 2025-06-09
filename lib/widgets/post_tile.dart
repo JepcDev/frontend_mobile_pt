@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_mobile_pt/screens/user_profile_screen.dart';
 import '../models/post.dart';
 
 class PostTile extends StatelessWidget {
@@ -12,13 +13,26 @@ class PostTile extends StatelessWidget {
     return Card(
       margin: EdgeInsets.all(8),
       child: ListTile(
-        leading: CircleAvatar(
-          backgroundColor: Colors.teal,
-          child: Text(
-            post.userId.toString(),
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        // init
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => UserProfileScreen(userId: post.userId),
+              ),
+            );
+          },
+          child: CircleAvatar(
+            backgroundColor: Colors.teal,
+            child: Text(
+              post.userId.toString(),
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            ),
           ),
         ),
+        // End
         title: Text(
           post.title,
           style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
